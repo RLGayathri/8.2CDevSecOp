@@ -2,14 +2,13 @@ pipeline {
   agent any
 
   environment {
-    PATH = "/Users/rlgayathri/.nvm/versions/node/v22.14.0/bin/npm"
+    PATH = "/Users/rlgayathri/.nvm/versions/node/v22.14.0/bin:$PATH"
     SHELL = "/bin/bash"
   }
 
   stages {
     stage('Checkout') {
       steps {
-        // Example checkout command
         checkout scm
       }
     }
@@ -32,7 +31,7 @@ pipeline {
       }
     }
 
-    stage('NPM Audit (Security Scan)') {
+    stage('NPM Audit (Security Scan') {
       steps {
         sh 'npm audit || true'
       }
