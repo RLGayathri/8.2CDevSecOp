@@ -9,14 +9,13 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-@@ -10,25 +15,25 @@ pipeline {
+
 
     stage('Install Dependencies') {
       steps {
         sh 'npm install'
       }
     }
-
     stage('Run Tests') {
       steps {
         sh 'npm test || true'
@@ -34,4 +33,7 @@ pipeline {
         sh 'npm audit || true'
       }
     }
+      }
+    }
   }
+}
