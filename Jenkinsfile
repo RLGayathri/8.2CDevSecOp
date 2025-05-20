@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    PATH = /Users/rlgayathri/.nvm/versions/node/v22.14.0/bin/npm
+    PATH = "/Users/rlgayathri/.nvm/versions/node/v22.14.0/bin/npm"
     SHELL = "/bin/bash"
   }
 
