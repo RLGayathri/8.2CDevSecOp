@@ -1,7 +1,7 @@
 pipeline {
   agent any
 
-  environment {
+environment {
     PATH = "/Users/rlgayathri/.nvm/versions/node/v22.14.0/bin:$PATH"
     SHELL = "/bin/bash"
   }
@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        checkout scm
+        git branch: 'main', url: 'https://github.com/RLGayathri/8.2CDevSecOp.git'
       }
     }
 
@@ -21,7 +21,13 @@ pipeline {
 
     stage('Run Tests') {
       steps {
-        sh 'npm test || true'
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          sh 'npm test'
+        }
+        emailext subject: "Test Stage Status: ${currentBuild.currentResult}",
+                 body: "Test stage result: ${currentBuild.currentResult}",
+                 to: 'gayatrirayudu123@gmail.com',
+                 attachLog: true
       }
     }
 
@@ -31,10 +37,18 @@ pipeline {
       }
     }
 
-    stage('NPM Audit (Security Scan') {
+    stage('NPM Audit (Security Scan)') {
       steps {
-        sh 'npm audit || true'
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          sh 'npm audit'
+        }
+        emailext subject: "Security Scan Status: ${currentBuild.currentResult}",
+                 body: "Security scan result: ${currentBuild.currentResult}",
+                 to: 'gayatrirayudu123@gmail.com',
+                 attachLog: true
       }
     }
   }
 }
+
+  
