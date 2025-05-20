@@ -9,13 +9,17 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-
+        // Example checkout command
+        checkout scm
+      }
+    }
 
     stage('Install Dependencies') {
       steps {
         sh 'npm install'
       }
     }
+
     stage('Run Tests') {
       steps {
         sh 'npm test || true'
@@ -31,8 +35,6 @@ pipeline {
     stage('NPM Audit (Security Scan)') {
       steps {
         sh 'npm audit || true'
-      }
-    }
       }
     }
   }
